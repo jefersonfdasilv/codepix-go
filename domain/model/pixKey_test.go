@@ -1,8 +1,6 @@
 package model_test
 
 import (
-	"fmt"
-	"os"
 	"testing"
 
 	uuid "github.com/satori/go.uuid"
@@ -14,19 +12,16 @@ import (
 
 func TestModel_NewPixKey(t *testing.T) {
 	code := "001"
-	name := "Coisa Amarela"
+	name := "Banco do Brasil"
 	bank, err := model.NewBank(code, name)
+
 	accountNumber := "abcnumber"
 	ownerName := "Wesley"
 	account, err := model.NewAccount(bank, accountNumber, ownerName)
+
 	kind := "email"
 	key := "j@j.com"
 	pixKey, err := model.NewPixKey(kind, account, key)
-
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
 
 	require.NotEmpty(t, uuid.FromStringOrNil(pixKey.ID))
 	require.Equal(t, pixKey.Kind, kind)
